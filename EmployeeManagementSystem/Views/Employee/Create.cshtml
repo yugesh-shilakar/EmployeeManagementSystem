@@ -1,0 +1,16 @@
+﻿
+@model Employee
+
+<h1>Create New Employee</h1>
+
+<form asp-action="Create" method="post">
+    <div class="form-group">
+        <label asp-for="FirstName">First Name:</label>
+        <input asp-for="FirstName" class="form-control" />
+        <span asp-validation-for="FirstName" class="text-danger"></span>
+    </div>
+    <!-- Add similar form fields for LastName, Contact, Address, Age, and Salary -->
+    <button type="submit" class="btn btn-primary">Submit</button>
+</form>
+
+<a href="@Url.Action("Index")">Back to List</a>

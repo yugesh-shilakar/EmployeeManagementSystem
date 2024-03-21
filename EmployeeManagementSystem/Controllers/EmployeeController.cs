@@ -1,0 +1,41 @@
+﻿using EmployeeManagementSystem.Models;
+using EmployeeManagementSystem.Repositories;
+using Microsoft.AspNetCore.Mvc;
+
+namespace EmployeeManagementSystem.Controllers
+{
+    public class EmployeeController : Controller
+    {
+        private readonly EmployeeRepository _employeeRepository;
+        public EmployeeController(EmployeeRepository employeeRepository)
+        {
+            _employeeRepository = employeeRepository;
+        }
+
+        //GET /EMPLOYEES
+        public IActionResult Index()
+        {
+            var employees = _employeeRepository.GetAllEmployees();
+            return View(employees);
+        }
+
+        //GET /EMPLOYEE/CREATE
+
+        public IActionResult Create()
+        {
+            return View();
+        }
+
+        //POST: /Employee/Create
+        [HttpPost]
+        public IActionResult Create(Employee employee)
+        {
+            if (ModelState.IsValid)
+            {
+                _employeeRepository.AddEmployee(employee);
+                return RedirectToAction(nameof(Index));
+            }
+            return View(employee);
+        }
+    }
+}
