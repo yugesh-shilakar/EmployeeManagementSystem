@@ -59,5 +59,17 @@ namespace EmployeeManagementSystem.Repositories
                 command.ExecuteNonQuery();
             }
         }
+        public void DeleteEmployee(int employeeId)
+        {
+            using (SqlConnection connection = new SqlConnection(_connectionString))
+            {
+                string query = "DELETE FROM Employee WHERE EmployeeID = @EmployeeID";
+                SqlCommand command = new SqlCommand(query, connection);
+                command.Parameters.AddWithValue("@EmployeeID", employeeId);
+
+                connection.Open();
+                command.ExecuteNonQuery ();
+            }
+        }
     }
 }

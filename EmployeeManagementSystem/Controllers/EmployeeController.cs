@@ -37,5 +37,12 @@ namespace EmployeeManagementSystem.Controllers
             }
             return View(employee);
         }
+
+        [HttpGet]
+        public IActionResult Delete(int id)
+        {
+            _employeeRepository.DeleteEmployee(id);
+            return RedirectToAction("Index");
+        }
     }
 }
