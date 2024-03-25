@@ -1,10 +1,13 @@
 using EmployeeManagementSystem.Repositories;
 
 var builder = WebApplication.CreateBuilder(args);
+var configuration = builder.Configuration;
 
 // Add services to the container.
+var connectionString = configuration.GetConnectionString("conn");
+builder.Services.AddSingleton<IEmployeeRepository>(new EmployeeRepository(connectionString));
 builder.Services.AddControllersWithViews();
-builder.Services.AddSingleton<IEmployeeRepository>(new EmployeeRepository("conn"));
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -20,6 +23,6 @@ app.UseAuthorization();
 
 app.MapControllerRoute(
     name: "default",
-    pattern: "{controller=Employee}/{action=Index}/{id?}");
+    pattern: "{controller=home}/{action=Index}/{id?}");
 
 app.Run();

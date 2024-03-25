@@ -3,10 +3,12 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Data.SqlClient;
 using System.Data;
 
+
 namespace EmployeeManagementSystem.Repositories
 {
     public class EmployeeRepository : IEmployeeRepository
     {
+
         private readonly string _connectionString;
         public EmployeeRepository(string connectionString)
         {
