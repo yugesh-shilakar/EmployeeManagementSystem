@@ -6,8 +6,8 @@ namespace EmployeeManagementSystem.Controllers
 {
     public class EmployeeController : Controller
     {
-        private readonly EmployeeRepository _employeeRepository;
-        public EmployeeController(EmployeeRepository employeeRepository)
+        private readonly IEmployeeRepository _employeeRepository;
+        public EmployeeController(IEmployeeRepository employeeRepository)
         {
             _employeeRepository = employeeRepository;
         }

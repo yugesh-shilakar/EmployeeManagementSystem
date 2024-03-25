@@ -2,8 +2,10 @@
 
 namespace EmployeeManagementSystem.Repositories
 {
-    public class IEmployeeRepository
+    public interface IEmployeeRepository
     {
+        IEnumerable<Employee> GetAllEmployees();
+        void AddEmployee(Employee employee);
 
     }
 }

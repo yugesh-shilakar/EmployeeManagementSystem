@@ -5,16 +5,17 @@ using System.Data;
 
 namespace EmployeeManagementSystem.Repositories
 {
-    public class EmployeeRepository
+    public class EmployeeRepository : IEmployeeRepository
     {
         private readonly string _connectionString;
-        public EmployeeRepository(IConfiguration configuration)
+        public EmployeeRepository(string connectionString)
         {
-            _connectionString = configuration.GetConnectionString("conn");
+            _connectionString = connectionString;
         }
-        public List<Employee> GetAllEmployees()
+        public IEnumerable<Employee> GetAllEmployees()
         {
             List<Employee> employees = new List<Employee>();
+
             using (SqlConnection connection = new SqlConnection(_connectionString))
             {
                 string query = "SELECT EmployeeID, FirstName, LastName, Contact, Address, Age, Salary FROM Employee";
