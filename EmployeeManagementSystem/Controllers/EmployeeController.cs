@@ -42,6 +42,30 @@ namespace EmployeeManagementSystem.Controllers
             _employeeRepository.DeleteEmployee(id);
             return RedirectToAction("Index");
         }
-        
+        [HttpGet]
+        public IActionResult Edit(int id)
+        {
+            var employee = _employeeRepository.GetAllEmployees()
+                .FirstOrDefault(e => e.EmployeeID == id);
+
+            if (employee == null)
+            {
+                return NotFound();
+            }
+
+            return View(employee);
+        }
+
+        [HttpPost]
+        public IActionResult Edit(Employee employee)
+        {
+            if (ModelState.IsValid)
+            {
+                _employeeRepository.UpdateEmployee(employee);
+                return RedirectToAction("Index");
+            }
+            return View(employee);
+        }
     }
 }
+

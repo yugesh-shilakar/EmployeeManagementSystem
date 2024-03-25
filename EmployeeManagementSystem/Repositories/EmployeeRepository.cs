@@ -71,5 +71,25 @@ namespace EmployeeManagementSystem.Repositories
                 command.ExecuteNonQuery ();
             }
         }
+        public void UpdateEmployee(Employee employee)
+        {
+            using (SqlConnection connection = new SqlConnection(_connectionString))
+            {
+                string query = "UPDATE Employee SET FirstName = @FirstName, LastName = @LastName, " +
+                               "Contact = @Contact, Address = @Address, Age = @Age, Salary = @Salary " +
+                               "WHERE EmployeeID = @EmployeeID";
+                SqlCommand command = new SqlCommand(query, connection);
+                command.Parameters.AddWithValue("@FirstName", employee.FirstName);
+                command.Parameters.AddWithValue("@LastName", employee.LastName);
+                command.Parameters.AddWithValue("@Contact", employee.Contact);
+                command.Parameters.AddWithValue("@Address", employee.Address);
+                command.Parameters.AddWithValue("@Age", employee.Age);
+                command.Parameters.AddWithValue("@Salary", employee.Salary);
+                command.Parameters.AddWithValue("@EmployeeID", employee.EmployeeID);
+
+                connection.Open();
+                command.ExecuteNonQuery();
+            }
+        }
     }
 }
