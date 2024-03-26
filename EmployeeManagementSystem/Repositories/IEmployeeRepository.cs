@@ -9,5 +9,6 @@ namespace EmployeeManagementSystem.Repositories
         void DeleteEmployee(int employeeId);
         void UpdateEmployee(Employee employee);
         Employee GetAllDistricts();
+        Employee GetAllCities(string districtId);
     }
 }

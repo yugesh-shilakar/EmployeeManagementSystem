@@ -25,6 +25,7 @@ namespace EmployeeManagementSystem.Controllers
         {
             var dropdown= _employeeRepository.GetAllDistricts();
             return View(dropdown);
+      
         }
 
         //POST: /Employee/Create

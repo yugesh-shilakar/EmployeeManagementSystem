@@ -124,5 +124,36 @@ namespace EmployeeManagementSystem.Repositories
             }
             return employee;
         }
+        public Employee GetAllCities(string districtId)
+        {
+            var employee = new Employee();
+            employee.CityList = new List<City>();
+            try
+            {
+                using (SqlConnection connection = new SqlConnection(_connectionString))
+                {
+                    string query = "SELECT Id, Name From City WHERE DistrictId = "+ districtId;
+                    SqlCommand command = new SqlCommand(query, connection);
+                    connection.Open();
+                    SqlDataReader reader = command.ExecuteReader();
+
+                    while (reader.Read())
+                    {
+                        employee.CityList.Add(new City
+                        {
+                            Id = Convert.ToInt32(reader["Id"]),
+                            Name = reader["Name"].ToString()
+                        });
+                    }
+                    reader.Close();
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.ToString());
+            }
+            return employee;
+        }
+        
     }
 }
