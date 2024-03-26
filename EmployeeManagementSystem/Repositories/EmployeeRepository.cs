@@ -91,5 +91,38 @@ namespace EmployeeManagementSystem.Repositories
                 command.ExecuteNonQuery();
             }
         }
+
+        public Employee GetAllDistricts()
+        {
+            var employee = new Employee();
+            employee.DistrictList = new List<District>();
+            try
+            {
+                using (SqlConnection connection = new SqlConnection(_connectionString))
+                {
+                    string query = "SELECT Id, Name FROM District";
+                    SqlCommand command = new SqlCommand(query, connection);
+                    connection.Open();
+                    SqlDataReader reader = command.ExecuteReader();
+
+                    while (reader.Read())
+                    {
+                        employee.DistrictList.Add(new District
+                        {
+                            Id = Convert.ToInt32(reader["id"]),
+                            Name = reader["name"].ToString()
+                        });
+                    }
+                    reader.Close();
+                }
+            }
+            catch(Exception ex) 
+            {
+                
+                Console.WriteLine(ex.ToString());
+
+            }
+            return employee;
+        }
     }
 }

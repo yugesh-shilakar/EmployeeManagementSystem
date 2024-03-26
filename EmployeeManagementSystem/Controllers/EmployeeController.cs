@@ -23,7 +23,8 @@ namespace EmployeeManagementSystem.Controllers
 
         public IActionResult Create()
         {
-            return View();
+            var dropdown= _employeeRepository.GetAllDistricts();
+            return View(dropdown);
         }
 
         //POST: /Employee/Create

@@ -1,0 +1,15 @@
+﻿@model List<District>
+
+@{
+    ViewData["Title"] = "Dropdown_District";
+}
+<label>District</label>
+<select id="districtDropdown">
+    <option value="">Select District</option>
+    @foreach (var district in Model)
+    {
+        <option value="@district.Id">@district.Name</option>
+    }
+</select>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
