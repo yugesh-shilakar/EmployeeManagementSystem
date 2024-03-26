@@ -28,6 +28,8 @@ namespace EmployeeManagementSystem.Models
         public List<District>? DistrictList { get; set; }
 
         public List<City>? CityList { get; set; }
+        public string? District { get; set; }
+        public string? City { get; set; }
 
     }
 }

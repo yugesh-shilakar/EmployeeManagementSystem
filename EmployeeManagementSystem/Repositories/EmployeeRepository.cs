@@ -17,79 +17,111 @@ namespace EmployeeManagementSystem.Repositories
         public IEnumerable<Employee> GetAllEmployees()
         {
             List<Employee> employees = new List<Employee>();
-
-            using (SqlConnection connection = new SqlConnection(_connectionString))
+            try
             {
-                string query = "SELECT EmployeeID, FirstName, LastName, Contact, Address, Age, Salary FROM Employee";
-                SqlCommand command = new SqlCommand(query, connection);
-                connection.Open();
-                SqlDataReader reader = command.ExecuteReader();
-                while (reader.Read())
+                using (SqlConnection connection = new SqlConnection(_connectionString))
                 {
-                    Employee employee = new Employee
+                    string query = "SELECT EmployeeID, FirstName, LastName, Contact, Address, Age, Salary FROM Employee";
+                    SqlCommand command = new SqlCommand(query, connection);
+                    connection.Open();
+                    SqlDataReader reader = command.ExecuteReader();
+                    while (reader.Read())
                     {
-                        EmployeeID = (int)reader["EmployeeID"],
-                        FirstName = reader["FirstName"].ToString(),
-                        LastName = reader["LastName"].ToString(),
-                        Contact = reader["Contact"].ToString(),
-                        Address = reader["Address"].ToString(),
-                        Age = (int)reader["Age"],
-                        Salary = reader["Salary"].ToString()
-                    };
-                    employees.Add(employee);
+                        Employee employee = new Employee
+                        {
+                            EmployeeID = (int)reader["EmployeeID"],
+                            FirstName = reader["FirstName"].ToString(),
+                            LastName = reader["LastName"].ToString(),
+                            Contact = reader["Contact"].ToString(),
+                            Address = reader["Address"].ToString(),
+                            Age = (int)reader["Age"],
+                            Salary = reader["Salary"].ToString()
+                        };
+                        employees.Add(employee);
+                    }
+                    reader.Close();
                 }
-                reader.Close();
+            }
+
+            catch(Exception ex)
+            {
+                Console.WriteLine(ex.ToString());
             }
             return employees;
         }
         public void AddEmployee(Employee employee)
         {
-            using (SqlConnection connection = new SqlConnection(_connectionString))
+            try
             {
-                string query = "INSERT INTO Employee (FirstName, LastName, Contact, Address, Age, Salary) " + "VALUES (@FirstName, @LastName, @Contact, @Address, @Age, @Salary)";
-                SqlCommand command = new SqlCommand(query, connection);
-                command.Parameters.AddWithValue("@FirstName", employee.FirstName);
-                command.Parameters.AddWithValue("@LastName", employee.LastName);
-                command.Parameters.AddWithValue("@Contact", employee.Contact);
-                command.Parameters.AddWithValue("@Address", employee.Address);
-                command.Parameters.AddWithValue("@Age", employee.Age);
-                command.Parameters.AddWithValue("@Salary", employee.Salary);
+                using (SqlConnection connection = new SqlConnection(_connectionString))
+                {
+                    string query = "INSERT INTO Employee (FirstName, LastName, Contact, Address, Age, Salary) " + "VALUES (@FirstName, @LastName, @Contact, @Address, @Age, @Salary)";
+                    SqlCommand command = new SqlCommand(query, connection);
+                    command.Parameters.AddWithValue("@FirstName", employee.FirstName);
+                    command.Parameters.AddWithValue("@LastName", employee.LastName);
+                    command.Parameters.AddWithValue("@Contact", employee.Contact);
+                    command.Parameters.AddWithValue("@Address", employee.Address);
+                    command.Parameters.AddWithValue("@Age", employee.Age);
+                    command.Parameters.AddWithValue("@Salary", employee.Salary);
 
-                connection.Open();
-                command.ExecuteNonQuery();
+                    connection.Open();
+                    command.ExecuteNonQuery();
+                }
+
+            }
+
+            catch(Exception ex)
+            {
+                Console.WriteLine(ex.ToString());
             }
         }
         public void DeleteEmployee(int employeeId)
         {
-            using (SqlConnection connection = new SqlConnection(_connectionString))
+            try
             {
-                string query = "DELETE FROM Employee WHERE EmployeeID = @EmployeeID";
-                SqlCommand command = new SqlCommand(query, connection);
-                command.Parameters.AddWithValue("@EmployeeID", employeeId);
+                using (SqlConnection connection = new SqlConnection(_connectionString))
+                {
+                    string query = "DELETE FROM Employee WHERE EmployeeID = @EmployeeID";
+                    SqlCommand command = new SqlCommand(query, connection);
+                    command.Parameters.AddWithValue("@EmployeeID", employeeId);
 
-                connection.Open();
-                command.ExecuteNonQuery ();
+                    connection.Open();
+                    command.ExecuteNonQuery();
+                }
+            }
+
+            catch(Exception ex)
+            {
+                Console.WriteLine(ex.ToString());
             }
         }
         public void UpdateEmployee(Employee employee)
         {
-            using (SqlConnection connection = new SqlConnection(_connectionString))
+            try
             {
-                string query = "UPDATE Employee SET FirstName = @FirstName, LastName = @LastName, " +
-                               "Contact = @Contact, Address = @Address, Age = @Age, Salary = @Salary " +
-                               "WHERE EmployeeID = @EmployeeID";
-                SqlCommand command = new SqlCommand(query, connection);
-                command.Parameters.AddWithValue("@FirstName", employee.FirstName);
-                command.Parameters.AddWithValue("@LastName", employee.LastName);
-                command.Parameters.AddWithValue("@Contact", employee.Contact);
-                command.Parameters.AddWithValue("@Address", employee.Address);
-                command.Parameters.AddWithValue("@Age", employee.Age);
-                command.Parameters.AddWithValue("@Salary", employee.Salary);
-                command.Parameters.AddWithValue("@EmployeeID", employee.EmployeeID);
+                using (SqlConnection connection = new SqlConnection(_connectionString))
+                {
+                    string query = "UPDATE Employee SET FirstName = @FirstName, LastName = @LastName, " +
+                                   "Contact = @Contact, Address = @Address, Age = @Age, Salary = @Salary " +
+                                   "WHERE EmployeeID = @EmployeeID";
+                    SqlCommand command = new SqlCommand(query, connection);
+                    command.Parameters.AddWithValue("@FirstName", employee.FirstName);
+                    command.Parameters.AddWithValue("@LastName", employee.LastName);
+                    command.Parameters.AddWithValue("@Contact", employee.Contact);
+                    command.Parameters.AddWithValue("@Address", employee.Address);
+                    command.Parameters.AddWithValue("@Age", employee.Age);
+                    command.Parameters.AddWithValue("@Salary", employee.Salary);
+                    command.Parameters.AddWithValue("@EmployeeID", employee.EmployeeID);
 
-                connection.Open();
-                command.ExecuteNonQuery();
+                    connection.Open();
+                    command.ExecuteNonQuery();
+                }
             }
+            catch(Exception ex)
+            {
+                Console.WriteLine(ex.ToString());
+            }
+            
         }
 
         public Employee GetAllDistricts()
