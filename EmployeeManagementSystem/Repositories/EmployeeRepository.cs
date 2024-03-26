@@ -124,7 +124,8 @@ namespace EmployeeManagementSystem.Repositories
             }
             return employee;
         }
-        public Employee GetAllCities(string districtId)
+
+        public Employee GetCityByDistrictId(string districtId)
         {
             var employee = new Employee();
             employee.CityList = new List<City>();

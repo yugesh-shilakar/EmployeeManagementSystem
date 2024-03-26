@@ -68,6 +68,14 @@ namespace EmployeeManagementSystem.Controllers
             }
             return View(employee);
         }
+
+        [HttpGet]
+        [HttpPost]
+        public JsonResult GetCityByDistrictId(string district)
+        {
+            var cities = _employeeRepository.GetCityByDistrictId(district);
+            return Json(cities);
+        } 
     }
 }
 

@@ -25,9 +25,9 @@ namespace EmployeeManagementSystem.Models
         [Range(10000, int.MaxValue, ErrorMessage = "Minimum salary must be 10000.")]
         public string? Salary { get; set; } 
 
-        public List<District> DistrictList { get; set; }
+        public List<District>? DistrictList { get; set; }
 
-        public List<City> CityList { get; set; }
+        public List<City>? CityList { get; set; }
 
     }
 }
