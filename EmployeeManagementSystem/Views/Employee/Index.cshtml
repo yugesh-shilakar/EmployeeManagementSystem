@@ -13,6 +13,8 @@
             <th>Address</th>
             <th>Age</th>
             <th>Salary</th>
+            <th>District</th>
+            <th>City</th>
             <th>Actions</th>
         </tr>
     </thead>
@@ -27,6 +29,8 @@
                 <td>@employee.Address</td>
                 <td>@employee.Age</td>
                 <td>@employee.Salary</td>
+                <td>@employee.District</td>
+                <td>@employee.City</td>
                 <td>
                     <a href="@Url.Action("Edit", new { id = employee.EmployeeID })">Edit</a> |
                     <a href="@Url.Action("Delete", new { id = employee.EmployeeID })">Delete</a>

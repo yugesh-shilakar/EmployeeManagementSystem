@@ -21,7 +21,7 @@ namespace EmployeeManagementSystem.Repositories
             {
                 using (SqlConnection connection = new SqlConnection(_connectionString))
                 {
-                    string query = "SELECT EmployeeID, FirstName, LastName, Contact, Address, Age, Salary FROM Employee";
+                    string query = "SELECT EmployeeID, FirstName, LastName, Contact, Address, Age, Salary, District, City FROM Employee";
                     SqlCommand command = new SqlCommand(query, connection);
                     connection.Open();
                     SqlDataReader reader = command.ExecuteReader();
@@ -35,7 +35,9 @@ namespace EmployeeManagementSystem.Repositories
                             Contact = reader["Contact"].ToString(),
                             Address = reader["Address"].ToString(),
                             Age = (int)reader["Age"],
-                            Salary = reader["Salary"].ToString()
+                            Salary = reader["Salary"].ToString(),
+                            District = reader["District"].ToString(),
+                            City = reader["City"].ToString(),
                         };
                         employees.Add(employee);
                     }
@@ -55,7 +57,7 @@ namespace EmployeeManagementSystem.Repositories
             {
                 using (SqlConnection connection = new SqlConnection(_connectionString))
                 {
-                    string query = "INSERT INTO Employee (FirstName, LastName, Contact, Address, Age, Salary) " + "VALUES (@FirstName, @LastName, @Contact, @Address, @Age, @Salary)";
+                    string query = "INSERT INTO Employee (FirstName, LastName, Contact, Address, Age, Salary, District, City) " + "VALUES (@FirstName, @LastName, @Contact, @Address, @Age, @Salary, @District, @City)";
                     SqlCommand command = new SqlCommand(query, connection);
                     command.Parameters.AddWithValue("@FirstName", employee.FirstName);
                     command.Parameters.AddWithValue("@LastName", employee.LastName);
@@ -63,6 +65,9 @@ namespace EmployeeManagementSystem.Repositories
                     command.Parameters.AddWithValue("@Address", employee.Address);
                     command.Parameters.AddWithValue("@Age", employee.Age);
                     command.Parameters.AddWithValue("@Salary", employee.Salary);
+                    command.Parameters.AddWithValue("@District", employee.District);
+                    command.Parameters.AddWithValue("@City", employee.City);
+
 
                     connection.Open();
                     command.ExecuteNonQuery();
