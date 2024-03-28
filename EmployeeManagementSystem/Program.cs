@@ -6,6 +6,7 @@ var configuration = builder.Configuration;
 // Add services to the container.
 var connectionString = configuration.GetConnectionString("conn");
 builder.Services.AddSingleton<IEmployeeRepository>(new EmployeeRepository(connectionString));
+builder.Services.AddSingleton<IUserRepository>(new UserRepository());
 builder.Services.AddControllersWithViews();
 
 var app = builder.Build();
@@ -23,6 +24,6 @@ app.UseAuthorization();
 
 app.MapControllerRoute(
     name: "default",
-    pattern: "{controller=Employee}/{action=Index}/{id?}");
+    pattern: "{controller=Login}/{action=Index}/{id?}");
 
 app.Run();

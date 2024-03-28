@@ -1,43 +1,55 @@
-﻿
-@model IEnumerable<Employee>
+﻿@model IEnumerable<Employee>
 
-<h1>Employee List</h1>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Employee List</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Employee List</h1>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Employee ID</th>
+                    <th>First Name</th>
+                    <th>Last Name</th>
+                    <th>Contact</th>
+                    <th>Address</th>
+                    <th>Age</th>
+                    <th>Salary</th>
+                    <th>District</th>
+                    <th>City</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var employee in Model)
+                {
+                    <tr>
+                        <td>@employee.EmployeeID</td>
+                        <td>@employee.FirstName</td>
+                        <td>@employee.LastName</td>
+                        <td>@employee.Contact</td>
+                        <td>@employee.Address</td>
+                        <td>@employee.Age</td>
+                        <td>@employee.Salary</td>
+                        <td>@employee.District</td>
+                        <td>@employee.City</td>
+                        <td>
+                            <a href="@Url.Action("Edit", new { id = employee.EmployeeID })">Edit</a> |
+                            <a href="@Url.Action("Delete", new { id = employee.EmployeeID })">Delete</a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+            
+        </table>
+        <a href="@Url.Action("Create")" class="create-link">Create New Employee</a>
 
-<table class="table">
-    <thead>
-        <tr>
-            <th>Employee ID</th>
-            <th>First Name</th>
-            <th>Last Name</th>
-            <th>Contact</th>
-            <th>Address</th>
-            <th>Age</th>
-            <th>Salary</th>
-            <th>District</th>
-            <th>City</th>
-            <th>Actions</th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var employee in Model)
-        {
-            <tr>
-                <td>@employee.EmployeeID</td>
-                <td>@employee.FirstName</td>
-                <td>@employee.LastName</td>
-                <td>@employee.Contact</td>
-                <td>@employee.Address</td>
-                <td>@employee.Age</td>
-                <td>@employee.Salary</td>
-                <td>@employee.District</td>
-                <td>@employee.City</td>
-                <td>
-                    <a href="@Url.Action("Edit", new { id = employee.EmployeeID })">Edit</a> |
-                    <a href="@Url.Action("Delete", new { id = employee.EmployeeID })">Delete</a>
-                </td>
-            </tr>
-        }
-    </tbody>
-</table>
-
-<a href="@Url.Action("Create")">Create New Employee</a>
+    </div>
+</body>
+</html>
