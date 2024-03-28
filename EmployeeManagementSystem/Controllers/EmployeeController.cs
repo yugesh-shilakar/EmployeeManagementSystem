@@ -47,9 +47,9 @@ namespace EmployeeManagementSystem.Controllers
         [HttpGet]
         public IActionResult Edit(int id)
         {
-            var employee = _employeeRepository.GetAllEmployees()
-                .FirstOrDefault(e => e.EmployeeID == id);
-
+            var employee = _employeeRepository.GetEmployeeDetail(id);
+            var districtList=_employeeRepository.GetAllDistricts();
+            employee.DistrictList = districtList.DistrictList;
             if (employee == null)
             {
                 return NotFound();
@@ -75,7 +75,8 @@ namespace EmployeeManagementSystem.Controllers
         {
             var cities = _employeeRepository.GetCityByDistrictId(district);
             return Json(cities);
-        } 
+        }
+
     }
 }
 

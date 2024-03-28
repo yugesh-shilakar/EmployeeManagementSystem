@@ -10,5 +10,6 @@ namespace EmployeeManagementSystem.Repositories
         void UpdateEmployee(Employee employee);
         Employee GetAllDistricts();
         Employee GetCityByDistrictId(string districtId);
+        Employee GetEmployeeDetail(int employeeId);
     }
 }

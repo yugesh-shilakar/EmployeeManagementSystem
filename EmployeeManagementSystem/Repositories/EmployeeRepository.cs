@@ -21,7 +21,8 @@ namespace EmployeeManagementSystem.Repositories
             {
                 using (SqlConnection connection = new SqlConnection(_connectionString))
                 {
-                    string query = "SELECT EmployeeID, FirstName, LastName, Contact, Address, Age, Salary, District, City FROM Employee";
+                    string query = "SELECT emp.EmployeeID, emp.FirstName, emp.LastName, emp.Contact, emp.Address, emp.Age, emp.Salary, d.Name District, c.Name City FROM Employee as emp left join District as d on d.Id=emp.District " +
+                        "Left Join City as c on c.Id=emp.City";
                     SqlCommand command = new SqlCommand(query, connection);
                     connection.Open();
                     SqlDataReader reader = command.ExecuteReader();
@@ -107,7 +108,7 @@ namespace EmployeeManagementSystem.Repositories
                 using (SqlConnection connection = new SqlConnection(_connectionString))
                 {
                     string query = "UPDATE Employee SET FirstName = @FirstName, LastName = @LastName, " +
-                                   "Contact = @Contact, Address = @Address, Age = @Age, Salary = @Salary " +
+                                   "Contact = @Contact, Address = @Address, Age = @Age, Salary = @Salary, District = @District, City = @City " +
                                    "WHERE EmployeeID = @EmployeeID";
                     SqlCommand command = new SqlCommand(query, connection);
                     command.Parameters.AddWithValue("@FirstName", employee.FirstName);
@@ -117,6 +118,9 @@ namespace EmployeeManagementSystem.Repositories
                     command.Parameters.AddWithValue("@Age", employee.Age);
                     command.Parameters.AddWithValue("@Salary", employee.Salary);
                     command.Parameters.AddWithValue("@EmployeeID", employee.EmployeeID);
+                    command.Parameters.AddWithValue("@District", employee.District);
+                    command.Parameters.AddWithValue("@City", employee.City);
+                    
 
                     connection.Open();
                     command.ExecuteNonQuery();
@@ -193,5 +197,40 @@ namespace EmployeeManagementSystem.Repositories
             return employee;
         }
         
+        public Employee GetEmployeeDetail(int employeeId)
+        {
+            var employee = new Employee();
+            try
+            {                
+                using (SqlConnection connection = new SqlConnection(_connectionString))
+                {
+                    string query = "SELECT EmployeeID, FirstName, LastName, Contact, Address, Age, Salary, District, City FROM Employee where EmployeeId ="+employeeId;
+                    SqlCommand command = new SqlCommand(query, connection);
+                    connection.Open ();
+                    var reader = command.ExecuteReader();
+                    while (reader.Read())
+                    {
+                        employee.EmployeeID = (int)reader["EmployeeID"];
+                        employee.FirstName = reader["FirstName"].ToString();
+                        employee.LastName = reader["LastName"].ToString();
+                        employee.Contact = reader["Contact"].ToString();
+                        employee.Address = reader["Address"].ToString();
+                        employee.Age = (int)reader["Age"];
+                        employee.Salary = reader["Salary"].ToString();
+                        employee.District = reader["District"].ToString();
+                        employee.City = reader["City"].ToString();
+
+                    }
+                    connection.Close();
+                }
+            }
+
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.ToString());
+            }
+            return employee;
+
+        }
     }
 }
